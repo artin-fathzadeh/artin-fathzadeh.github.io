@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <p>Hi, I'm artin fathzadeh👋</p>
-  <p>You should be redirected to the main page in a few seconds😁!</p>
+ <style>
+   body {
+     font-family: 'Piazzolla', sans-serif;
+   }
+   p:first-of-type {
+     font-size: 30px; /* Larger font for the first print statement */
+     animation: fadeIn 1s; /* Fade in animation for the first print statement */
+   }
+   p:nth-of-type(2) {
+     font-size: 20px; /* Medium-sized font for the second print statement */
+     animation: fadeIn 1s; /* Fade in animation for the second print statement, starts after 5 seconds */
+   }
+   p:last-of-type {
+     font-size: 10px; /* Smallest font for the last print statement */
+     animation: fadeIn 5s; /* Fade in animation for the last print statement, starts after 10 seconds */
+   }
+   @keyframes fadeIn {
+     0% { opacity: 0; }
+     100% { opacity: 1; }
+   }
+ </style>
 </head>
 <body>
-  <p>Hmmmmm, it seems your not being redirected :(🫠, try going to <a href="artin">here</a> to visit the actual page as this redirects to the intended subdomain. You can also 👀 the site's source code by clicking <a href="https://github.com/artin-fathzadeh/artin">here.</a> </p>
+ <p>Hi, I'm artin fathzadeh👋</p>
+ <p>You should be redirected to the main page in a few seconds😁!</p>
+ <p>Hmmmmm, it seems your not being redirected :(🫠, try going to <a href="artin">here</a> to visit the actual page as this redirects to the intended subdomain. You can also 👀 the site's source code by clicking <a href="https://github.com/artin-fathzadeh/artin">here.</a> </p>
 </body>
 </html>
-
 
