@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +27,7 @@
         h1 {
             color: #333;
         }
-        input[type="text"] {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 0.5rem;
             margin: 1rem 0;
@@ -59,33 +58,75 @@
             color: #333;
             font-size: 0.8rem;
         }
+        #passwordPrompt {
+            display: none;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>URL Redirector</h1>
-        <input type="text" id="urlInput" placeholder="Enter a URL (e.g., https://www.example.com)">
+        <input type="text" id="urlInput" placeholder="Enter a URL or search term">
         <button onclick="redirect()">Go to Website</button>
+        <div id="passwordPrompt">
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="checkPassword()">Submit</button>
+        </div>
     </div>
     <div class="credit">Created by Artin</div>
 
     <script>
+        const encryptedPassword = "YTE=";
+
         function redirect() {
             const urlInput = document.getElementById('urlInput');
-            let url = urlInput.value.trim();
+            let input = urlInput.value.trim().toLowerCase();
             
-            if (url !== '') {
-                // Add https:// if not present
-                if (!/^https?:\/\//i.test(url)) {
-                    url = 'https://' + url;
+            if (input === 'chat') {
+                document.getElementById('passwordPrompt').style.display = 'block';
+            } else if (isValidUrl(input)) {
+                if (!/^https?:\/\//i.test(input)) {
+                    input = 'https://' + input;
                 }
-                
-                // Redirect to the entered URL
-                window.location.href = url;
+                window.location.href = input;
             } else {
-                alert('Please enter a valid URL');
+                window.location.href = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
             }
         }
+
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            if (btoa(passwordInput.value) === encryptedPassword) {
+                window.location.href = 'https://chat.beeper.com';
+            } else {
+                alert('Incorrect password');
+                passwordInput.value = '';
+            }
+        }
+
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(string);
+            }
+        }
+
+        document.getElementById('urlInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                redirect();
+            }
+        });
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkPassword();
+            }
+        });
     </script>
 </body>
 </html>
